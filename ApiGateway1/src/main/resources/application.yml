@@ -1,0 +1,44 @@
+server:
+  port: 8383
+
+spring:
+  application:
+    name: ApiGateway
+  cloud:
+    gateway:
+      routes:
+        - id: USERSERVICE
+          uri: lb://USERSERVICE
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - AuthenticationFilter
+        
+        - id: HOTELSERVICE
+          uri: lb://HOTELSERVICE
+          predicates:
+            - Path=/api/hotels/**
+          filters:
+            - AuthenticationFilter
+            
+        - id: RATINGSERVICE
+          uri: lb://RATINGSERVICE
+          predicates:
+            - Path=/api/ratings/**
+          filters:
+            - AuthenticationFilter
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+
+# Optional: Enable gateway logging for debugging
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    com.lcwd.gateway: DEBUG

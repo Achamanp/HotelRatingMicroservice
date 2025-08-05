@@ -35,7 +35,7 @@ bash
 Copy
 Edit
 # Clone the project
-git clone https://github.com/your-username/HotelRatingMicroservice.git
+git clone (https://github.com/Achamanp/HotelRatingMicroservice)
 
 # Build the project
 mvn clean install
